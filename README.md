@@ -33,7 +33,7 @@ Once started you'll be able to read the Hue Web url for your environment (plase 
 
 | **HUE Web GUI**           |**URL**                            |
 |:--------------------------|:----------------------------------|
-| *Cloudera Hue*            | http://172.17.0.3:8888            |
+| *Cloudera Hue*            | http://172.17.0.3:8000            |
 
 
 
