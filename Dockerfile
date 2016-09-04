@@ -4,6 +4,15 @@ MAINTAINER Matteo Capitanio <matteo.capitanio@gmail.com>
 
 USER root
 
+ARG httpProxyHost
+ARG httpProxyPort
+
+ENV http_proxy ${http_proxy}
+ENV https_proxy ${https_proxy}
+ENV no_proxy ${no_proxy}
+ENV httpProxyHost ${httpProxyHost}
+ENV httpProxyPort ${httpProxyPort}
+
 ENV HUE_VER 3.11.0
 ENV HUE_HOME /opt/hue
 
@@ -55,10 +64,7 @@ RUN wget https://github.com/cloudera/hue/archive/release-$HUE_VER.tar.gz
 RUN tar -xvf release-$HUE_VER.tar.gz
 RUN mv hue-release-$HUE_VER $HUE_HOME
 
-RUN cd $HUE_HOME; \
-    make apps
-
-RUN rm -rf $HUE_HOME/desktop/conf.dist
+COPY etc/ /etc/
 
 RUN useradd -p $(echo "hue" | openssl passwd -1 -stdin) hue; \
     useradd -p $(echo "hdfs" | openssl passwd -1 -stdin) hdfs; \
@@ -66,15 +72,23 @@ RUN useradd -p $(echo "hue" | openssl passwd -1 -stdin) hue; \
     usermod -a -G supergroup hue; \
     usermod -a -G hdfs hue
 
+RUN mkdir /root/.m2
+COPY settings.xml ./
+COPY set-maven-proxy.sh ./
+RUN chmod +x set-maven-proxy.sh
+RUN ./set-maven-proxy.sh
+
+RUN cd $HUE_HOME; \
+    make apps
+
+RUN rm -rf $HUE_HOME/desktop/conf.dist
+
 COPY hue/ $HUE_HOME/
+
 RUN chmod +x $HUE_HOME/build/env/bin/*.sh
-COPY etc/ /etc/
-RUN chown -R hue:hue $HUE_HOME
 
 VOLUME [ "/opt/hue/conf", "/opt/hue/logs" ]
 
 EXPOSE 8000
-
-USER hue
 
 ENTRYPOINT ["supervisord", "-c", "/etc/supervisord.conf", "-n"]

@@ -9,7 +9,7 @@ if [ $rc -ne 0 ]; then
     exit $rc
 fi
 
-wait-for-it.sh hadoop:8020 -t 40
+wait-for-it.sh hadoop:8020 -t 180
 rc=$?
 if [ $rc -ne 0 ]; then
     echo -e "\n---------------------------------------"
@@ -18,7 +18,9 @@ if [ $rc -ne 0 ]; then
     exit $rc
 fi
 
-wait-for-it.sh postgres:5432 -t 40
+hdfs dfsadmin -safemode leave
+
+wait-for-it.sh postgres:5432 -t 120
 rc=$?
 if [ $rc -ne 0 ]; then
     echo -e "\n---------------------------------------"
@@ -27,7 +29,7 @@ if [ $rc -ne 0 ]; then
     exit $rc
 fi
 
-wait-for-it.sh hive:9083 -t 120
+wait-for-it.sh hive:9083 -t 480
 rc=$?
 if [ $rc -ne 0 ]; then
     echo -e "\n---------------------------------------"
@@ -36,7 +38,7 @@ if [ $rc -ne 0 ]; then
     exit $rc
 fi
 
-wait-for-it.sh hive:10000 -t 120
+wait-for-it.sh hive:10000 -t 480
 rc=$?
 if [ $rc -ne 0 ]; then
     echo -e "\n---------------------------------------"
@@ -46,7 +48,6 @@ if [ $rc -ne 0 ]; then
 fi
 
 psql -h postgres -U postgres -c "CREATE DATABASE hue;"
-psql -h postgres -U postgres -d hue -c "TRUNCATE django_content_type CASCADE;"
 hue syncdb --noinput
 hue migrate --noinput
 
@@ -55,12 +56,18 @@ supervisorctl start hue
 ip=`awk 'END{print $1}' /etc/hosts`
 
 echo -e "\n\n--------------------------------------------------------------------------------"
-echo -e "You can now access to the following Cloudera Hue Web UIs:"
-echo -e ""
-echo -e "Cloudera Hue 		http://$ip:8000"
-echo -e ""
-echo -e "IMPORTANT NOTE: once the  "
+echo -e "You can now access to the following Cloudera Hue Web UIs:\n"
+echo -e "Cloudera Hue 		http://$ip:8000\n"
+echo -e "IMPORTANT NOTE: at the first login remember to create a Hue username called 'hue'"
+echo -e "in order to access with the correct permissions to the HDFS of the Hadoop docker"
+echo -e "container."
+echo -e "Otherwise you'll have to update the core-site.xml file in the hadoop_conf named"
+echo -e "volume in order to add/update the following parameters:\n"
+echo -e "\t\thadoop.proxyuser.<username>.groups"
+echo -e "\t\thadoop.proxyuser.<username>.hosts"
+echo -e "\nMantainer:   Matteo Capitanio <matteo.capitanio@gmail.com>"
 echo -e "--------------------------------------------------------------------------------\n\n"
+
 
 
 
