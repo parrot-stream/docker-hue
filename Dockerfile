@@ -19,7 +19,8 @@ ENV HUE_HOME /opt/hue
 ENV PATH $HUE_HOME/build/env/bin:$PATH
 
 # Install needed packages
-RUN yum clean all; yum update -y; yum clean all
+RUN yum update -y; \
+    yum clean all
 RUN yum install -y \
     ant \
     asciidoc \
@@ -50,10 +51,11 @@ RUN yum install -y \
     libtidy-devel \
     openssl \
     postgresql \
-    postgresql-devel
+    postgresql-devel \
+    epel-release \
+    python-pip
+RUN yum clean all
 RUN easy_install supervisor
-RUN yum install -y epel-release
-RUN yum install -y python-pip
 RUN pip install --upgrade pip
 RUN pip install setuptools psycopg2
 

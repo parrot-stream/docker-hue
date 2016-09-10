@@ -1,0 +1,72 @@
+version: "2"
+
+services:
+
+    postgres:
+        extends:
+            file: postgres.yml
+            service: postgres
+
+    zookeeper:
+        extends:
+            file: zookeeper.yml
+            service: zookeeper
+
+    hadoop:
+        extends:
+            file: hadoop.yml
+            service: hadoop
+        links:
+            - zookeeper
+            
+    hive:
+        extends:
+            file: hive.yml
+            service: hive
+        links:
+            - hadoop
+            - zookeeper
+            - postgres
+        volumes_from:
+            - hadoop
+
+    hue:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: mcapitanio/hue:latest
+        networks:
+            - hadoop
+        links:
+            - hive
+            - hadoop
+            - zookeeper
+            - postgres
+        volumes:
+            - hue_conf:/opt/hue/desktop/conf
+            - hue_logs:/opt/hue/logs
+        volumes_from:
+            - hadoop
+        environment:
+            PGPASSWORD: postgres
+        ports:
+            - "8000:8000"
+
+networks:
+    hadoop:
+      driver: bridge
+
+volumes:
+    postgres_data:
+    hue_conf:
+    hue_logs:
+    hadoop_conf:
+    hadoop_hdfs:
+    hadoop_logs:
+    zookeeper_data:
+    zookeeper_logs:
+    zookeeper_conf:
+    hive_logs:
+    hive_conf:
+    hbase_logs:
+    hbase_conf:
