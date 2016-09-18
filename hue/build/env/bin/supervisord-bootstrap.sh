@@ -53,11 +53,9 @@ hue migrate --noinput
 
 supervisorctl start hue
 
-ip=`awk 'END{print $1}' /etc/hosts`
-
 echo -e "\n\n--------------------------------------------------------------------------------"
 echo -e "You can now access to the following Cloudera Hue Web UIs:\n"
-echo -e "Cloudera Hue 		http://$ip:8000\n"
+echo -e "Cloudera Hue 		http://localhost:8000\n"
 echo -e "IMPORTANT NOTE: at the first login remember to create a Hue username called 'hue'"
 echo -e "in order to access with the correct permissions to the HDFS of the Hadoop docker"
 echo -e "container."

@@ -29,11 +29,11 @@ Run with Docker Compose:
 
 Setting the project name to *docker* with the **-p** option is useful to share the named data volumes created with with the containers created with other docker-compose.yml configurations (for example the one of the [Hadoop Docker image](https://hub.docker.com/r/mcapitanio/hadoop/)).
 
-Once started you'll be able to read the Hue Web url for your environment (plase note that the ip is non static!):
+Once started you'll be able to read the Hue Web url:
 
 | **HUE Web GUI**           |**URL**                            |
 |:--------------------------|:----------------------------------|
-| *Cloudera Hue*            | http://172.17.0.3:8000            |
+| *Cloudera Hue*            | http://localhost:8000            |
 
 
 
