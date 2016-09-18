@@ -52,12 +52,12 @@ RUN yum install -y \
     openssl \
     postgresql \
     postgresql-devel \
-    epel-release \
-    python-pip
-RUN yum clean all
+    epel-release
+RUN yum install -y python-pip
 RUN easy_install supervisor
 RUN pip install --upgrade pip
 RUN pip install setuptools psycopg2
+RUN yum clean all
 
 WORKDIR /opt/docker
 
