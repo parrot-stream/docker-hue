@@ -41,6 +41,9 @@ services:
             - hadoop
 
     hue:
+        build:
+            context: .
+            dockerfile: Dockerfile
         image: mcapitanio/hue:latest
         networks:
             - hadoop
