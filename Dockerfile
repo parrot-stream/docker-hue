@@ -4,15 +4,6 @@ MAINTAINER Matteo Capitanio <matteo.capitanio@gmail.com>
 
 USER root
 
-ARG httpProxyHost
-ARG httpProxyPort
-
-ENV http_proxy ${http_proxy}
-ENV https_proxy ${https_proxy}
-ENV no_proxy ${no_proxy}
-ENV httpProxyHost ${httpProxyHost}
-ENV httpProxyPort ${httpProxyPort}
-
 ENV HUE_VER 3.11.0
 ENV HUE_HOME /opt/hue
 
@@ -73,12 +64,6 @@ RUN useradd -p $(echo "hue" | openssl passwd -1 -stdin) hue; \
     groupadd supergroup; \
     usermod -a -G supergroup hue; \
     usermod -a -G hdfs hue
-
-RUN mkdir /root/.m2
-COPY settings.xml ./
-COPY set-maven-proxy.sh ./
-RUN chmod +x set-maven-proxy.sh
-RUN ./set-maven-proxy.sh
 
 RUN cd $HUE_HOME; \
     make apps
