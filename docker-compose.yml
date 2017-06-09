@@ -57,6 +57,8 @@ services:
             - hue_logs:/opt/hue/logs
         volumes_from:
             - hadoop
+            - hbase
+            - hive
         environment:
             PGPASSWORD: postgres
         ports:
