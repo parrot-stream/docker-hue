@@ -44,7 +44,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        image: mcapitanio/hue:latest
+        image: mcapitanio/hue:3.11
         networks:
             - hadoop
         links:
