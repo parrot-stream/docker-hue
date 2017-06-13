@@ -4,14 +4,14 @@ MAINTAINER Matteo Capitanio <matteo.capitanio@gmail.com>
 
 USER root
 
-ENV HUE_VER 3.11.0
+ENV HUE_VER 4.0.0
 ENV HUE_HOME /opt/hue
 
 ENV PATH $HUE_HOME/build/env/bin:$PATH
 
 # Install needed packages
 RUN yum update -y; \
-    yum clean all
+    yum upgrade -y
 RUN yum install -y \
     ant \
     asciidoc \

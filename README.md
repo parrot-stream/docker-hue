@@ -19,24 +19,24 @@ You can also find other images based on different Cloudera Hue releases, using a
     docker pull mcapitanio/hue:[hue-release]
 
 
-For example, if you want Apache HBase release 3.9.0 you can pull the image with:
+For example, if you want Apache Hue release 3.11.0 you can pull the image with:
 
-    docker pull mcapitanio/hue:3.9.0
+    docker pull mcapitanio/hue:3.11.0
 
 Run with Docker Compose:
 
     docker-compose -p docker up
 
-Setting the project name to *docker* with the **-p** option is useful to share the named data volumes created with with the containers created with other docker-compose.yml configurations (for example the one of the [Hadoop Docker image](https://hub.docker.com/r/mcapitanio/hadoop/)).
+Setting the project name to *docker* with the **-p** option is useful to create the same network **hadoop** prefixed with the name of the project. If you want to use this image to connect to Hive, HBase, Impala, etc. you have to start the docker containers you can find in my Docker Hub.
 
-Once started you'll be able to read the Hue Web url:
+Once started you'll be able to access the Hue Web console at:
 
 | **HUE Web GUI**           |**URL**                            |
 |:--------------------------|:----------------------------------|
 | *Cloudera Hue*            | http://localhost:8000            |
 
 
-
 ### Available tags:
 
-- Cloudera Hue 3.11.0 (3.11.0, [latest](https://github.com/mcapitanio/docker-hue/blob/latest/Dockerfile))
+- Cloudera Hue 4.0.0 ([4.0.0](https://github.com/mcapitanio/docker-hue/blob/4.0.0/Dockerfile), [latest](https://github.com/mcapitanio/docker-hue/blob/latest/Dockerfile))
+- Cloudera Hue 3.11.0 (3.11.0, [latest](https://github.com/mcapitanio/docker-hue/blob/3.11.0/Dockerfile))
