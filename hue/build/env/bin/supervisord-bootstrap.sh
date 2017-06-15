@@ -18,8 +18,6 @@ if [ $rc -ne 0 ]; then
     exit $rc
 fi
 
-hdfs dfsadmin -safemode leave
-
 wait-for-it.sh postgres:5432 -t 120
 rc=$?
 if [ $rc -ne 0 ]; then
@@ -38,7 +36,7 @@ if [ $rc -ne 0 ]; then
     exit $rc
 fi
 
-wait-for-it.sh hive:10000 -t 480
+wait-for-it.sh hive:10002 -t 480
 rc=$?
 if [ $rc -ne 0 ]; then
     echo -e "\n---------------------------------------"

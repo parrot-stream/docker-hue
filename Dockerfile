@@ -59,22 +59,14 @@ RUN mv hue-release-$HUE_VER $HUE_HOME
 
 COPY etc/ /etc/
 
-RUN useradd -p $(echo "hue" | openssl passwd -1 -stdin) hue; \
-    useradd -p $(echo "hdfs" | openssl passwd -1 -stdin) hdfs; \
-    groupadd supergroup; \
-    usermod -a -G supergroup hue; \
-    usermod -a -G hdfs hue
-
 RUN cd $HUE_HOME; \
     make apps
 
 RUN rm -rf $HUE_HOME/desktop/conf.dist
-
 COPY hue/ $HUE_HOME/
-
 RUN chmod +x $HUE_HOME/build/env/bin/*.sh
 
-VOLUME [ "/opt/hue/conf", "/opt/hue/logs" ]
+RUN useradd -p $(echo "hue" | openssl passwd -1 -stdin) hue
 
 EXPOSE 8000
 
