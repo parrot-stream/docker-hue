@@ -38,4 +38,5 @@ Once started you'll be able to access the Hue Web console at:
 ### Available tags:
 
 - Cloudera Hue 4.0.0 ([4.0.0](https://github.com/parrot-stream/docker-hue/blob/4.0.0/Dockerfile), [latest](https://github.com/parrot-stream/docker-hue/blob/latest/Dockerfile))
-- Cloudera Hue 3.11.0 ([3.11](https://github.com/parrot-stream/docker-hue/blob/3.11.0/Dockerfile))
+- Cloudera Hue 3.12.0 ([3.11.0](https://github.com/parrot-stream/docker-hue/blob/3.12.0/Dockerfile))
+- Cloudera Hue 3.11.0 ([3.11.0](https://github.com/parrot-stream/docker-hue/blob/3.11.0/Dockerfile))
