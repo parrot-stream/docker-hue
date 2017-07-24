@@ -1,4 +1,4 @@
-FROM mcapitanio/centos-java:7-7u80
+FROM parrotstream/centos-openjdk
 
 MAINTAINER Matteo Capitanio <matteo.capitanio@gmail.com>
 
@@ -11,7 +11,7 @@ ENV PATH $HUE_HOME/build/env/bin:$PATH
 
 # Install needed packages
 RUN yum update -y; \
-    yum clean all
+    yum upgrade -y
 RUN yum install -y \
     ant \
     asciidoc \
@@ -31,7 +31,6 @@ RUN yum install -y \
     openldap-devel \
     python-devel \
     python-pip \
-    python-setuptools \
     sqlite-devel \
     openssl-devel \
     gmp-devel \
@@ -45,7 +44,6 @@ RUN yum install -y \
     postgresql-devel \
     epel-release
 RUN yum install -y python-pip
-RUN easy_install supervisor
 RUN pip install --upgrade pip
 RUN pip install setuptools psycopg2
 RUN yum clean all
