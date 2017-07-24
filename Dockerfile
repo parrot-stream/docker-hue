@@ -4,7 +4,7 @@ MAINTAINER Matteo Capitanio <matteo.capitanio@gmail.com>
 
 USER root
 
-ENV HUE_VER 3.11.0
+ENV HUE_VER 3.12.0
 ENV HUE_HOME /opt/hue
 
 ENV PATH $HUE_HOME/build/env/bin:$PATH
