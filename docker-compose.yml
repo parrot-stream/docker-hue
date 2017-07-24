@@ -4,9 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: mcapitanio/hue:latest
+    image: parrotstream/hue:latest
     networks:
-    - hadoop
+    - parrot
     external_links:
     - hive
     - hadoop
@@ -17,7 +17,10 @@ services:
     ports:
     - 8000:8000
 networks:
-  hadoop:
+  default:
+    external:
+      name: parrot
+  parrot:
     driver: bridge
 volumes:
   hadoop_conf: null
