@@ -1,4 +1,4 @@
-FROM mcapitanio/centos-java:7-7u80
+FROM parrotstream/centos-openjdk
 
 MAINTAINER Matteo Capitanio <matteo.capitanio@gmail.com>
 
@@ -31,7 +31,6 @@ RUN yum install -y \
     openldap-devel \
     python-devel \
     python-pip \
-    python-setuptools \
     sqlite-devel \
     openssl-devel \
     gmp-devel \
@@ -45,7 +44,6 @@ RUN yum install -y \
     postgresql-devel \
     epel-release
 RUN yum install -y python-pip
-RUN easy_install supervisor
 RUN pip install --upgrade pip
 RUN pip install setuptools psycopg2
 RUN yum clean all
@@ -59,14 +57,22 @@ RUN mv hue-release-$HUE_VER $HUE_HOME
 
 COPY etc/ /etc/
 
+RUN useradd -p $(echo "hue" | openssl passwd -1 -stdin) hue; \
+    useradd -p $(echo "hdfs" | openssl passwd -1 -stdin) hdfs; \
+    groupadd supergroup; \
+    usermod -a -G supergroup hue; \
+    usermod -a -G hdfs hue
+
 RUN cd $HUE_HOME; \
     make apps
 
 RUN rm -rf $HUE_HOME/desktop/conf.dist
+
 COPY hue/ $HUE_HOME/
+
 RUN chmod +x $HUE_HOME/build/env/bin/*.sh
 
-RUN useradd -p $(echo "hue" | openssl passwd -1 -stdin) hue
+VOLUME [ "/opt/hue/conf", "/opt/hue/logs" ]
 
 EXPOSE 8000
 
