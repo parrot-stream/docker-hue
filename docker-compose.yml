@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: parrotstream/hue:3.11
+    image: parrotstream/hue:3.11.0
     networks:
     - parrot
     external_links:

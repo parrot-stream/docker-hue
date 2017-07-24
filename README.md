@@ -18,9 +18,9 @@ You can also find other images based on different Cloudera Hue releases, using a
     docker pull parrotstream/hue:[hue-release]
 
 
-For example, if you want Apache Hue release 3.11 you can pull the image with:
+For example, if you want Apache Hue release 3.11.0 you can pull the image with:
 
-    docker pull parrotstream/hue:3.11
+    docker pull parrotstream/hue:3.11.0
 
 Run with Docker Compose:
 
@@ -38,4 +38,4 @@ Once started you'll be able to access the Hue Web console at:
 ### Available tags:
 
 - Cloudera Hue 4.0.0 ([4.0.0](https://github.com/parrot-stream/docker-hue/blob/4.0.0/Dockerfile), [latest](https://github.com/parrot-stream/docker-hue/blob/latest/Dockerfile))
-- Cloudera Hue 3.11 ([3.11](https://github.com/parrot-stream/docker-hue/blob/3.11/Dockerfile))
+- Cloudera Hue 3.11.0 ([3.11](https://github.com/parrot-stream/docker-hue/blob/3.11.0/Dockerfile))
